@@ -1,0 +1,13 @@
+# SPA fallback — serve index.html for any client-side route (Apache / cPanel / LiteSpeed)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the request maps to a real file or directory, serve it as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise hand the route to the SPA entry point
+  RewriteRule ^ index.html [L]
+</IfModule>

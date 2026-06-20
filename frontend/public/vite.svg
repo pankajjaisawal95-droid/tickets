@@ -1,0 +1,15 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect x="8" y="8" width="48" height="48" rx="12" fill="#6C63FF"></rect>
+
+    <!-- Bank Building -->
+    <path d="M32 19L20 25H44L32 19Z" fill="white"></path>
+
+    <path d="M23 27V38" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+    <path d="M29 27V38" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+    <path d="M35 27V38" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+    <path d="M41 27V38" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+
+    <path d="M21 40H43" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+    <path d="M19 44H45" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+</svg>

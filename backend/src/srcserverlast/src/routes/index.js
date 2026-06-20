@@ -1,0 +1,27 @@
+import { Router } from 'express';
+
+import authRoutes from './auth.routes.js';
+import eventRoutes from './event.routes.js';
+import orderRoutes from './order.routes.js';
+import paymentRoutes from './payment.routes.js';
+import homeRoutes from './home.routes.js';
+import qrscanRoutes from './qrscan.routes.js'
+import ticketRoutes from './ticket.routes.js'
+import adminRoutes from './admin.routes.js'
+import visitRoutes from './visit.routes.js'
+import contactRoutes from './contact.routes.js'
+
+const router = Router();
+
+router.use('/auth', authRoutes);
+router.use('/event', eventRoutes);
+router.use('/order', orderRoutes);
+router.use('/payment', paymentRoutes);
+router.use('/qrscan', qrscanRoutes);
+router.use('/ticket', ticketRoutes);
+router.use('/home', homeRoutes);
+router.use('/admin', adminRoutes);
+router.use('/track', visitRoutes);
+router.use('/contact', contactRoutes);
+
+export default router;

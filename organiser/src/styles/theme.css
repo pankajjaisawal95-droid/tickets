@@ -1,0 +1,317 @@
+/* ============================================================
+   EventDIY theme — re-skins the (token-driven) organiser app to
+   match OrganiserUiReference. Loaded AFTER index.css so it wins.
+   We remap the app's legacy CSS variables to the EventDIY palette
+   (so every existing component — sidebar, tables, forms, badges,
+   EventForm — adopts the new look) and add a few component refinements
+   plus the design tokens/animations the reference auth shell needs.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---- EventDIY design tokens (used by auth.css + Logo) ---- */
+  --brand-50: #eef2ff;  --brand-100: #e0e7ff; --brand-200: #c7d2fe; --brand-300: #a5b4fc;
+  --brand-400: #818cf8; --brand-500: #6366f1; --brand-600: #4f46e5; --brand-700: #4338ca;
+  --brand-800: #3730a3; --brand-900: #312e81;
+  --accent-400: #22d3ee; --accent-500: #06b6d4;
+  --success-50: #ecfdf5; --success-500: #10b981; --success-600: #059669;
+  --warning-50: #fffbeb; --warning-500: #f59e0b; --warning-600: #d97706;
+  --danger-50: #fef2f2;  --danger-400: #f87171; --danger-500: #ef4444; --danger-600: #dc2626;
+  --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-400: #9ca3af;
+  --gray-500: #6b7280; --gray-600: #4b5563; --gray-700: #374151; --gray-800: #1f2937;
+  --surface: #ffffff; --surface-2: #f9fafc; --border-strong: #d3d7e3;
+  --text-muted: #5b6178; --text-soft: #8b90a6;
+  --radius-sm: 8px; --radius-lg: 20px; --radius-xl: 28px;
+  --shadow-xs: 0 1px 2px rgba(16,24,40,.05);
+  --shadow-sm: 0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+  --shadow-md: 0 4px 12px rgba(16,24,40,.08), 0 2px 4px rgba(16,24,40,.04);
+  --shadow-lg: 0 12px 32px rgba(16,24,40,.12), 0 4px 8px rgba(16,24,40,.04);
+  --shadow-xl: 0 24px 56px rgba(16,24,40,.18);
+  --shadow-brand: 0 12px 28px rgba(79,70,229,.32);
+  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+  --gradient-brand-soft: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  --gradient-marketing: linear-gradient(160deg, #4338ca 0%, #6d28d9 45%, #7c3aed 70%, #0891b2 130%);
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- Remap the app's legacy variable names → EventDIY palette ---- */
+  --bg: #f5f6fb;
+  --panel: #ffffff;
+  --border: #e6e8ef;
+  --text: #16182b;
+  --muted: #5b6178;
+  --primary: #4f46e5;
+  --primary-d: #4338ca;
+  --radius: 16px;
+  --shadow: 0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+  --ok-bg: #ecfdf5;  --ok-fg: #059669;
+  --warn-bg: #fffbeb; --warn-fg: #d97706;
+  --bad-bg: #fef2f2;  --bad-fg: #dc2626;
+  --muted-bg: #f3f4f6; --muted-fg: #4b5563;
+}
+
+/* ---- Typography ---- */
+body { font-family: var(--font-body); font-size: 14px; color: var(--text); background: var(--bg); }
+h1, h2, h3, h4, h5 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+
+/* ---- Animations (needed by auth.css feature panel) ---- */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fadeIn 0.4s var(--ease) both; }
+.animate-fade-up { animation: fadeUp 0.5s var(--ease) both; }
+
+/* ---- Logo (reference component) ---- */
+.logo { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; }
+.logo__mark { width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--gradient-brand); color: #fff; box-shadow: var(--shadow-brand); }
+.logo__text { font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text); }
+.logo__accent { color: var(--brand-600); }
+.logo--sm .logo__mark { width: 30px; height: 30px; border-radius: 9px; }
+.logo--sm .logo__text { font-size: 1.05rem; }
+.logo--inverted .logo__text { color: #fff; }
+.logo--inverted .logo__accent { color: var(--accent-400); }
+.logo--inverted .logo__mark { background: rgba(255,255,255,0.14); box-shadow: none; }
+
+/* ============================================================
+   Re-skin the existing admin-derived components
+   ============================================================ */
+
+/* ---- Sidebar → light, premium ---- */
+.sidebar { background: var(--surface); border-right: 1px solid var(--border); color: var(--text-muted); width: 248px; padding: 14px; }
+.brand { color: var(--text); font-family: var(--font-display); font-weight: 800; display: flex; align-items: center; gap: 10px; padding: 8px 8px 16px; }
+.nav-link { color: var(--text-muted); border-radius: 11px; font-weight: 600; padding: 11px 13px; position: relative; transition: all 0.16s var(--ease); }
+.nav-link:hover { background: var(--gray-100); color: var(--text); }
+.nav-link.active { background: var(--brand-50); color: var(--brand-700); }
+.nav-link.active::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 99px; background: var(--brand-600); }
+
+/* ---- Topbar → sticky frosted ---- */
+.topbar { height: 60px; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 20px; }
+.content { padding: 26px; }
+
+/* ---- Hamburger (mobile only) ---- */
+.hamburger { display: none; background: none; border: none; color: var(--text); padding: 7px; border-radius: 9px; margin-right: 6px; }
+.hamburger:hover { background: var(--gray-100); }
+
+/* ---- Topbar user chip + dropdown ---- */
+.user-avatar { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--gradient-brand); color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.user-avatar--lg { width: 44px; height: 44px; border-radius: 12px; font-size: 16px; }
+.user-chip { display: flex; align-items: center; gap: 10px; background: none; border: 1px solid transparent; border-radius: 12px; padding: 5px 10px 5px 6px; cursor: pointer; transition: background 0.16s; }
+.user-chip:hover { background: var(--gray-100); }
+.user-chip .user-name { font-weight: 600; font-size: 0.9rem; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-chip > svg { color: var(--text-soft); }
+
+.menu-backdrop { position: fixed; inset: 0; z-index: 59; }
+.user-menu { position: absolute; top: calc(100% + 8px); right: 0; z-index: 60; min-width: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-lg); padding: 8px; animation: fadeIn 0.14s var(--ease) both; }
+.user-menu__head { display: flex; align-items: center; gap: 12px; padding: 8px 8px 10px; }
+.user-menu__id { display: flex; flex-direction: column; min-width: 0; }
+.user-menu__id strong { font-size: 0.92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-menu__id span { font-size: 0.78rem; color: var(--text-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-menu__sep { height: 1px; background: var(--border); margin: 4px 6px; }
+.user-menu button { display: flex; align-items: center; gap: 11px; width: 100%; padding: 10px 12px; border: none; background: none; border-radius: 10px; font-size: 0.9rem; font-weight: 500; color: var(--text); cursor: pointer; text-align: left; transition: background 0.14s; }
+.user-menu button:hover { background: var(--gray-100); }
+.user-menu button svg { color: var(--text-soft); }
+.user-menu button.danger { color: var(--danger-600); }
+.user-menu button.danger svg { color: var(--danger-500); }
+
+/* ---- Mobile: off-canvas drawer sidebar ---- */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 60; width: 256px;
+    transform: translateX(-100%); transition: transform 0.28s var(--ease); box-shadow: var(--shadow-xl);
+  }
+  .sidebar.is-open { transform: translateX(0); }
+  .scrim { position: fixed; inset: 0; background: rgba(15,15,35,0.45); z-index: 55; }
+  .hamburger { display: grid; place-items: center; }
+  .content { padding: 18px; }
+}
+@media (max-width: 520px) {
+  .user-chip .user-name { display: none; }
+  .user-chip { padding: 5px; }
+  .topbar { padding: 0 14px; }
+}
+
+/* ---- Page head ---- */
+.page-head h1 { font-size: 1.6rem; }
+
+/* ---- Buttons ---- */
+.btn { border-radius: 12px; font-weight: 600; font-size: 0.9rem; padding: 10px 18px; transition: transform 0.15s var(--ease), box-shadow 0.2s var(--ease), background 0.2s, border-color 0.2s; }
+.btn:hover { background: var(--gray-100); }
+.btn-sm { padding: 7px 13px; font-size: 0.82rem; border-radius: 10px; }
+.btn-primary { background: var(--gradient-brand); border-color: transparent; color: #fff; box-shadow: var(--shadow-brand); }
+.btn-primary:hover { background: var(--gradient-brand); transform: translateY(-1px); box-shadow: 0 16px 34px rgba(79,70,229,0.42); }
+.btn-danger { background: var(--danger-500); border-color: transparent; color: #fff; box-shadow: 0 8px 20px rgba(239,68,68,0.28); }
+.btn-danger:hover { background: var(--danger-600); filter: none; }
+.btn-block { border-radius: 12px; padding: 12px; font-size: 0.95rem; }
+
+/* ---- Inputs ---- */
+.input, select.input, textarea.input { border: 1.5px solid var(--border); border-radius: 12px; padding: 11px 14px; font-size: 0.92rem; transition: border-color 0.18s, box-shadow 0.18s; }
+.input:hover { border-color: var(--border-strong); }
+.input:focus { outline: none; border-color: var(--brand-500); box-shadow: 0 0 0 4px rgba(99,102,241,0.14); }
+.field > span { font-size: 0.85rem; font-weight: 600; color: var(--gray-700); }
+.input-mini { padding: 6px 9px; border-radius: 9px; }
+
+/* ---- Panels / cards ---- */
+.panel { border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.cards { gap: 18px; }
+.stat-card { padding: 18px 20px; border-radius: var(--radius-lg); }
+.stat-card .value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; }
+.stat-card .label { text-transform: none; letter-spacing: 0; font-size: 0.8rem; color: var(--text-soft); }
+
+/* ---- Badges ---- */
+.badge { border-radius: 99px; padding: 4px 11px; font-size: 0.76rem; }
+
+/* ---- Tables ---- */
+.dt, .table { border-radius: 0; }
+.panel .mini-table th, .table th { background: var(--surface-2); color: var(--text-soft); }
+.table tbody tr.row-click:hover { background: var(--brand-50); }
+
+/* ---- Section titles / notices ---- */
+.section-title { color: var(--text-soft); }
+.notice { border-radius: 14px; background: var(--brand-50); color: var(--brand-700); border: 1px solid var(--brand-100); font-weight: 500; }
+.notice-bad { background: var(--danger-50); color: var(--danger-600); border-color: #fecaca; }
+
+/* ---- Fallback simple auth (only used if AuthLayout not present) ---- */
+.auth-card { border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); }
+
+/* ============================================================
+   Profile & Settings page
+   ============================================================ */
+.profile-hero { display: flex; align-items: center; gap: 18px; padding: 20px 22px; margin-bottom: 20px; flex-wrap: wrap; }
+.user-avatar--xl { width: 64px; height: 64px; border-radius: 18px; font-size: 1.5rem; }
+.profile-hero__id { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.profile-hero__id strong { font-family: var(--font-display); font-size: 1.25rem; }
+.profile-hero__meta { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.86rem; color: var(--text-muted); }
+.profile-hero__meta span { display: inline-flex; align-items: center; gap: 6px; }
+.profile-hero__meta svg { color: var(--brand-500); }
+.profile-hero__kyc { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+
+.profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+@media (max-width: 820px) { .profile-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) {
+  .profile-hero { flex-direction: column; align-items: flex-start; text-align: left; }
+  .profile-hero__kyc { align-items: flex-start; }
+}
+
+/* ============================================================
+   Event create / edit form — layout + responsiveness
+   ============================================================ */
+/* Centre + constrain the form so fields aren't absurdly wide on big screens. */
+.ev-page { max-width: 940px; margin: 0 auto; }
+.ev-page .page-head { align-items: flex-end; }
+.ev-page .page-head .muted { margin-top: 4px; font-size: 0.9rem; }
+
+/* Two-column grid that collapses to one column on narrow screens. */
+.ev-page .form-grid { grid-template-columns: 1fr 1fr; gap: 0 20px; }
+.ev-page .form-grid .full { grid-column: 1 / -1; }
+
+/* Section headings become clear dividers between groups of fields. */
+.ev-page .section-title {
+  margin: 24px 0 14px; padding-top: 20px; border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+
+/* Action bar: right-aligned on desktop, full-width button on mobile. */
+.ev-actions { margin-top: 8px; }
+
+/* Image upload pickers wrap cleanly when space is tight. */
+@media (max-width: 600px) {
+  .img-upload-row { flex-wrap: wrap; }
+  .img-upload-controls { width: 100%; }
+}
+
+/* Collapse the form to a single column on tablets/phones. */
+@media (max-width: 760px) {
+  .ev-page .form-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .ev-page .page-head { flex-direction: column; align-items: stretch; }
+  .ev-page .page-head .btn { align-self: flex-start; }
+  .ev-actions { justify-content: stretch !important; }
+  .ev-actions .btn { width: 100%; }
+}
+
+/* Card panels (ticket types, media) scroll their tables horizontally instead of
+   overflowing the page on small screens. */
+@media (max-width: 680px) {
+  .ev-page .mini-table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+/* ============================================================
+   Create Event — tabbed wizard
+   ============================================================ */
+:root { --gray-50: #f9fafb; --gray-150: #eef0f3; }
+
+.ev-tabs { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 22px; border-bottom: 1px solid var(--border); }
+.ev-tab { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border: none; background: none; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); border-bottom: 2.5px solid transparent; white-space: nowrap; transition: all 0.16s; margin-bottom: -1px; cursor: pointer; }
+.ev-tab:hover { color: var(--text); }
+.ev-tab.is-active { color: var(--brand-700); border-bottom-color: var(--brand-600); }
+.ev-tab.is-done .ev-tab__num { background: var(--success-500); color: #fff; }
+.ev-tab__num { width: 20px; height: 20px; border-radius: 50%; background: var(--gray-150); color: var(--text-muted); font-size: 0.72rem; display: grid; place-items: center; font-weight: 700; }
+.ev-tab.is-active .ev-tab__num { background: var(--brand-600); color: #fff; }
+
+.ev-secthead { margin-bottom: 22px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.ev-secthead h3 { display: flex; align-items: center; gap: 9px; font-size: 1.18rem; letter-spacing: -0.01em; }
+.ev-secthead h3 svg { color: var(--brand-600); }
+.ev-secthead p { font-size: 0.88rem; color: var(--text-muted); margin-top: 5px; }
+
+.ev-bannerprev { margin-top: 12px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--gray-100); max-width: 340px; }
+.ev-bannerprev img { width: 100%; display: block; object-fit: cover; }
+.ev-bannerprev--portrait img { aspect-ratio: 3/4; }
+.ev-bannerprev--landscape img { aspect-ratio: 16/9; }
+
+.ev-inline-error { display: flex; align-items: center; gap: 7px; font-size: 0.85rem; color: var(--danger-600); background: var(--danger-50); border: 1px solid #fecaca; padding: 10px 14px; border-radius: 11px; margin-bottom: 16px; }
+
+.ev-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 20px 0 4px; margin-top: 6px; border-top: 1px solid var(--border); }
+.ev-foot__center { display: flex; }
+
+/* ---- Tickets ---- */
+.tickets { display: flex; flex-direction: column; gap: 16px; }
+.tickets__presets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tickets__presets-label { font-size: 0.84rem; font-weight: 600; color: var(--text-muted); margin-right: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 7px 13px; border-radius: 99px; border: 1.5px solid var(--border-strong); background: var(--surface); font-size: 0.83rem; font-weight: 600; color: var(--gray-700); transition: all 0.16s; cursor: pointer; }
+.chip:hover { border-color: var(--brand-400); color: var(--brand-700); background: var(--brand-50); }
+.tickets__empty { text-align: center; padding: 32px 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; border: 2px dashed var(--border-strong); border-radius: var(--radius); color: var(--text-muted); }
+.tickets__list { display: flex; flex-direction: column; gap: 14px; }
+.ticket-card { position: relative; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 18px 18px 22px; background: var(--surface-2); overflow: hidden; }
+.ticket-card__bar { position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--gradient-brand); }
+.ticket-card__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.ticket-card__no { font-weight: 800; color: var(--text-soft); font-size: 0.85rem; }
+.ticket-card__rm { width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); display: grid; place-items: center; cursor: pointer; }
+.ticket-card__rm:hover { color: var(--danger-600); border-color: #fecaca; background: var(--danger-50); }
+.ticket-card__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+/* ---- Review ---- */
+.review-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.review-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; background: var(--surface-2); }
+.review-card h4 { font-size: 0.92rem; margin-bottom: 10px; color: var(--text); }
+.review-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-size: 0.85rem; }
+.review-row:last-child { border-bottom: none; }
+.review-row .k { color: var(--text-soft); }
+.review-row .v { font-weight: 600; text-align: right; }
+.review-final { display: flex; align-items: center; gap: 10px; margin-top: 18px; padding: 14px 16px; border-radius: var(--radius); background: var(--gradient-brand-soft); border: 1px solid var(--brand-100); font-size: 0.88rem; color: var(--brand-800); }
+
+@media (max-width: 860px) { .ticket-card__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .ticket-card__grid { grid-template-columns: 1fr; } .review-grid { grid-template-columns: 1fr; } }
+
+/* ---- Full-width create-event wizard ---- */
+/* Removes the centred 940px cap so the wizard fills the content area. The field
+   grid scales up to 3 columns on wide screens so fields don't stretch too wide,
+   then collapses: 3 → 2 → 1 as the viewport narrows. */
+.ev-page--full { max-width: none; }
+.ev-page--full .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 22px; }
+@media (min-width: 1180px) {
+  .ev-page--full .form-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ev-page--full .review-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .ev-page--full .form-grid { grid-template-columns: 1fr; }
+}
+/* Footer wraps instead of squashing on small screens. */
+@media (max-width: 520px) {
+  .ev-foot { flex-wrap: wrap; }
+  .ev-foot__center, .ev-foot .muted { order: 3; flex-basis: 100%; text-align: center; }
+}

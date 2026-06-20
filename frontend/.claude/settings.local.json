@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path . -Force | Where-Object { $_.Name -match 'vercel|netlify|nginx|htaccess|Dockerfile|firebase|render|_redirects|web.config|vite.config' } | Select-Object Name; Write-Output '--- public folder ---'; if \\(Test-Path 'public'\\) { Get-ChildItem 'public' -Force | Select-Object Name } else { Write-Output 'no public folder' })"
+    ]
+  }
+}

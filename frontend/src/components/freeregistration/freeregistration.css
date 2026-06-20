@@ -1,0 +1,374 @@
+/* ============================
+   FREE REGISTRATION PAGE
+============================ */
+
+.top-from-info {
+  position: relative;
+  min-height: calc(100vh - var(--nav-h));
+  padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 32px) 80px;
+  background-image:
+    linear-gradient(180deg, rgba(22,5,42,0.55) 0%, rgba(22,5,42,0.85) 100%),
+    url("../../assets/holi-2026.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.top-from-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 50% at 30% 20%, rgba(70,71,211,0.45), transparent 70%),
+    radial-gradient(40% 50% at 80% 80%, rgba(255,141,178,0.30), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* FORM CARD */
+.form-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 0 30px 70px rgba(22, 5, 42, 0.35);
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 32px 28px;
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+  animation: kc-fade-up 0.6s var(--ease) both;
+}
+
+.form-event-media {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.krishna-icon {
+  max-width: 100%;
+  width: 320px;
+  border-radius: 18px;
+  display: block;
+  box-shadow: 0 16px 40px rgba(22, 5, 42, 0.18);
+  animation: pulse 3.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.02); opacity: 0.95; }
+}
+
+.form-event-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--grad-warm);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 18px rgba(168, 49, 0, 0.35);
+}
+
+.form-container h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--on-background);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-bottom: 22px;
+}
+
+.form-event-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.form-container label {
+  display: block !important;
+  text-align: left !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+  margin: 16px 0 6px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--outline-variant);
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  background: var(--surface-container-lowest);
+  color: var(--on-background);
+  outline: none;
+  transition: all 0.25s var(--ease);
+}
+.form-container input:focus:not(:disabled) {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(70,71,211,0.12);
+}
+.form-container input:disabled {
+  background: var(--surface-container-low);
+  color: var(--on-surface-variant);
+  cursor: not-allowed;
+}
+.form-container input[readonly] {
+  background: var(--surface-container-low);
+  color: var(--on-surface-variant);
+  cursor: default;
+}
+
+/* PHONE ROW */
+.phone-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.Free-country-code {
+  background: var(--surface-container);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1.5px solid var(--outline-variant);
+  color: var(--on-background);
+}
+.phone-row > input {
+  flex: 1;
+  min-width: 160px;
+}
+
+.verify-cta {
+  width: auto !important;
+  padding: 12px 18px !important;
+  font-size: 13.5px !important;
+}
+
+.verified-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(15, 126, 59, 0.10);
+  color: #0f7e3b;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  border: 1px solid rgba(15, 126, 59, 0.20);
+}
+.verified-chip .material-symbols-outlined { font-size: 16px; }
+
+/* REGISTER BUTTON */
+.registerNow {
+  width: 100%;
+  background: var(--grad-primary);
+  color: #fff;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  box-shadow: 0 12px 28px rgba(70, 71, 211, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.registerNow:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(70,71,211,0.45);
+}
+.registerNow:disabled { cursor: not-allowed; }
+.registerNow .material-symbols-outlined { font-size: 18px; }
+
+.form-helper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--on-surface-variant);
+  font-weight: 600;
+}
+.form-helper .material-symbols-outlined { font-size: 16px; color: var(--primary); }
+
+/* Old footer note (kept) */
+.footer-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* ============================
+   CHANGE NUMBER CONFIRM MODAL
+   (uses .login-backdrop / .login-modal classes)
+============================ */
+
+.change-confirm-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.yesChangeBtn {
+  flex: 1;
+  background: var(--grad-primary);
+  color: #ffffff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  box-shadow: 0 10px 22px rgba(70, 71, 211, 0.32);
+}
+.yesChangeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(70, 71, 211, 0.42);
+}
+.yesChangeBtn:active { transform: scale(0.97); }
+
+.CancelBtn {
+  flex: 1;
+  background: var(--surface-container);
+  color: var(--on-background);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  margin: 0;
+}
+.CancelBtn:hover { background: var(--surface-container-high); }
+.CancelBtn:active { transform: scale(0.97); }
+
+/* ============================
+   OTP MODAL EXTRAS
+============================ */
+
+.crossbtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  background: var(--surface-container-high);
+  border: none;
+  border-radius: 999px;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--ease);
+}
+.crossbtn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: rotate(90deg);
+}
+.crossbtn .material-symbols-outlined { font-size: 18px; }
+
+.verifyOtpBtn {
+  width: 100%;
+  margin-top: 18px;
+  background: var(--grad-primary);
+  color: #ffffff;
+  border: none;
+  padding: 14px 0;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  box-shadow: 0 12px 28px rgba(70,71,211,0.38);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.verifyOtpBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(70,71,211,0.45);
+}
+.verifyOtpBtn:active { transform: scale(0.97); }
+.verifyOtpBtn:disabled {
+  background: var(--outline-variant);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.verifyOtpBtn .material-symbols-outlined { font-size: 18px; }
+
+.ResendOtpBtn {
+  display: inline-block;
+  margin-top: 12px;
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.ResendOtpBtn:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+.ResendOtpBtn:active { transform: scale(0.96); }
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 560px) {
+  .form-container { padding: 24px 20px; border-radius: 22px; }
+  .form-container h3 { font-size: 19px; }
+  .krishna-icon { width: 100%; }
+
+  .phone-row { flex-direction: column; align-items: stretch; }
+  .Free-country-code { width: 100%; text-align: center; }
+  .verify-cta, .verified-chip { width: 100%; justify-content: center; }
+}

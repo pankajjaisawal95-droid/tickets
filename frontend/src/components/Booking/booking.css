@@ -1,0 +1,275 @@
+/* ============================
+   BOOKING PAGE LAYOUT
+============================ */
+
+.booking-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(36px, 6vw, 64px) clamp(16px, 4vw, 32px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 36px);
+  align-items: start;
+}
+
+.booking-left {
+  background: var(--surface-container-lowest);
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(189,161,211,0.20);
+}
+.booking-left h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+}
+
+.booking-meta-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.booking-meta-list li {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--surface-container-low);
+  border-radius: 14px;
+}
+.booking-meta-list li > .material-symbols-outlined {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.meta-label {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+}
+.booking-meta-list li strong {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--on-background);
+  margin-top: 3px;
+  letter-spacing: -0.01em;
+}
+
+.booking-left .description {
+  margin: 18px 0 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--on-surface-variant);
+}
+
+.terms {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px dashed var(--outline-variant);
+  background: var(--surface-container-low);
+}
+.terms strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--on-background);
+  margin-bottom: 10px;
+}
+.terms strong .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--primary);
+}
+.terms ul {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--on-surface-variant);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* ============================
+   BOOKING SUMMARY (right)
+============================ */
+
+.booking-right {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+  background: var(--surface-container-lowest);
+  padding: clamp(22px, 3vw, 32px);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(189,161,211,0.20);
+}
+.booking-right-head { margin-bottom: 18px; }
+.booking-right h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.booking-summary-empty {
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--on-surface-variant);
+  background: var(--surface-container-low);
+  border-radius: 14px;
+}
+.booking-summary-empty .material-symbols-outlined {
+  font-size: 38px;
+  color: var(--outline);
+}
+.booking-summary-empty p { margin: 8px 0 0; font-weight: 600; }
+
+.booking-summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--surface-container-low);
+  border-radius: 12px;
+  font-size: 14px;
+}
+.summary-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--on-background);
+}
+.summary-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+}
+.summary-x {
+  color: var(--on-surface-variant);
+  font-weight: 700;
+  margin-left: 4px;
+}
+.summary-amount {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  color: var(--on-background);
+}
+
+.divider {
+  height: 1px;
+  background: var(--outline-variant);
+  opacity: 0.4;
+  margin: 14px 0;
+}
+
+.total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: var(--surface-container);
+  border-radius: 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--on-background);
+  margin-top: 6px;
+}
+.total-amount {
+  font-size: 24px;
+  color: var(--primary);
+  letter-spacing: -0.025em;
+}
+
+.pay-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px;
+  background: var(--grad-primary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 14px 30px rgba(70,71,211,0.38);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(70,71,211,0.48);
+}
+.pay-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.pay-btn .material-symbols-outlined { font-size: 18px; }
+
+.booking-trust {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--surface-container-low);
+  border-radius: 12px;
+  color: var(--on-surface-variant);
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+.booking-trust .material-symbols-outlined {
+  font-size: 18px;
+  color: #0f7e3b;
+}
+
+.summary-seats {
+  display: block;
+  font-size: 12px;
+  color: #4647d3;
+  margin-top: 2px;
+}
+
+@media (max-width: 992px) {
+  .booking-layout { grid-template-columns: 1fr; }
+  .booking-right  { position: static; }
+}

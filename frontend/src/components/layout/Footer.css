@@ -1,0 +1,159 @@
+.app-footer {
+  position: relative;
+  margin-top: 80px;
+  background: linear-gradient(180deg, #1a0a3a 0%, #0f0420 100%);
+  color: #d9c8ec;
+  overflow: hidden;
+  isolation: isolate;
+}
+.app-footer-glow {
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  height: 360px;
+  background: radial-gradient(closest-side, rgba(70,71,211,0.55), transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app-footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(36px, 6vw, 72px) clamp(20px, 4vw, 32px) 32px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+  gap: clamp(20px, 4vw, 56px);
+}
+
+.footer-brand-col { max-width: 360px; }
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.footer-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--grad-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(70,71,211,0.45);
+}
+.footer-brand-mark .material-symbols-outlined { font-size: 22px; }
+
+.footer-brand-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.footer-brand-tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b39ddb;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.footer-blurb {
+  color: #b8a5cf;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 22px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+.footer-social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+}
+.footer-social-btn:hover {
+  background: var(--grad-primary);
+  transform: translateY(-2px);
+  color: #fff;
+}
+.footer-social-btn .material-symbols-outlined { font-size: 20px; }
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer-col h5 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+.footer-col a,
+.footer-contact-row {
+  color: #b8a5cf;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.footer-col a:hover,
+.footer-contact-row:hover { color: #fff; transform: translateX(2px); }
+.footer-contact-row .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--primary-fixed);
+}
+.footer-col a.active { color: #fff; }
+
+.app-footer-bottom {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px clamp(20px, 4vw, 32px) 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #8b7aa6;
+  flex-wrap: wrap;
+}
+.footer-bottom-meta { letter-spacing: 0.04em; }
+
+@media (max-width: 992px) {
+  .app-footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand-col { grid-column: 1 / -1; max-width: none; }
+}
+@media (max-width: 560px) {
+  .app-footer-inner { grid-template-columns: 1fr; }
+  .app-footer-bottom { justify-content: center; text-align: center; }
+}

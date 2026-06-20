@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(curl -s -o /dev/null -w \"no-header  -> %{http_code}\\\\n\" http://localhost:5320/api/auth/eventUserDetail)",
+      "Bash(curl -s -w \"\\\\nwith-bad-token -> %{http_code}\\\\n\" http://localhost:5320/api/auth/eventUserDetail -H \"x-access-token: bad\")",
+      "Bash(curl -s http://localhost:5320/api/home/home-data)",
+      "Bash(python -c \"import sys,json;d=json.load\\(sys.stdin\\);[print\\(s['sectionId'],'|',s['title'],'|layout=',s['layout'],'| events=',len\\(s['events']\\),'| banner=',\\(s['events'][0]['banner_url'][:60] if s['events'] else 'none'\\)\\) for s in d['data']]\")",
+      "Bash(python -c \"import sys,json;d=json.load\\(sys.stdin\\);print\\('scripts:',json.dumps\\(d.get\\('scripts',{}\\),indent=2\\)\\);print\\('main:',d.get\\('main'\\)\\)\")",
+      "Bash(powershell.exe -NoProfile -Command \"Get-CimInstance Win32_Process -Filter \\\\\"Name='node.exe'\\\\\" | Select-Object ProcessId,CommandLine | Format-List\")",
+      "Bash(Get-ChildItem -Path \"d:\\\\development\\\\Pankaj\\\\Pankaj\\\\dev\\\\ticket\" -Recurse -Directory -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -First 20)",
+      "Bash(node --env-file=d:/development/Pankaj/Pankaj/dev/ticket/backend/.env -e ' *)",
+      "Bash(node -e \"import\\('geoip-lite'\\).then\\(m=>{const g=m.default; console.log\\(g.lookup\\('8.8.8.8'\\)\\)}\\)\")",
+      "Bash(node --check src/middlewares/optionalAuth.middleware.js)",
+      "Bash(node --check src/routes/visit.routes.js)",
+      "Bash(npx vite *)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 5320 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1 OwningProcess | ForEach-Object { Get-Process -Id $_.OwningProcess | Select-Object Id, ProcessName, StartTime })",
+      "Bash(cd /d/development/Pankaj/Pankaj/dev/kriida)",
+      "Bash(ls Frontend/src)",
+      "Bash(find src *)",
+      "Bash(curl -s -m 5 \"http://localhost:5320/api/event/seats/2\")",
+      "Bash(curl -s -m 5 \"http://localhost:5320/api/event/getevent?eventId=15\")",
+      "PowerShell($p = \\(Get-NetTCPConnection -LocalPort 5320 -State Listen -ErrorAction SilentlyContinue\\).OwningProcess; if \\($p\\) { Stop-Process -Id $p -Force; \"killed $p\" } else { \"nothing on 5320\" }; Start-Sleep -Milliseconds 400)",
+      "Bash(node --check src/helpers/ticketPdf.helper.js)",
+      "Bash(node -e ' *)"
+    ],
+    "additionalDirectories": [
+      "d:\\development\\Pankaj\\Pankaj\\dev\\run"
+    ]
+  }
+}
